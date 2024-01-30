@@ -7,3 +7,4 @@ data1 = {"fn": name1, "ua": age1, "cf": city1}
 print("Hello %s %s from %s" % (name1, age1, city1))
 print("Hello %(fn)s %(ua)s from %(cf)s" % data1)
 print(f"Hello {name1} {age1} from {city1}")
+print("Hello {} {} from {}".format(name1, age1, city1))
