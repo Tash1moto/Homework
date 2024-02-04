@@ -11,5 +11,6 @@ for key in dict1:
     dict0["Name"] = name1
     email1 = input("Enter Email: ")
     dict0["Email"] = email1
-    dict2[key] = dict0
+    key2 = key+1
+    dict2[key2] = dict0
 print(dict2)
