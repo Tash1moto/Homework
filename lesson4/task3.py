@@ -23,5 +23,5 @@ for key in dict1.keys():
     dict0["Name"] = name1
     email1 = input("Enter Email: ")
     dict0["Email"] = email1
-    dict2.update({key: dict0.values()})
+    dict2.update({key: dict0})
 print(dict2)
