@@ -3,14 +3,12 @@
 # для этих ключей будут браться с клавиатуры
 
 n1 = int(input("Enter Max number of records: "))
-dict1 = {x for x in range(n1)}
-dict2 = {}
-dict0 = {"Name": "NA", "Email": "NA"}
-for key in dict1:
-    name1 = input("Enter Name: ")
-    dict0["Name"] = name1
-    email1 = input("Enter Email: ")
-    dict0["Email"] = email1
-    key2 = key+1
-    dict2[key2] = dict0
-print(dict2)
+dict1 = {x: {"Name": input("Enter Name: "), "Email": input("Enter Email: ")} for x in range(n1)}
+print(dict1)
+data2 = {}
+for i in range(n1):
+        data2[i] = {
+                "Name": input(),
+                "Email": input()
+        }
+print(data2)
