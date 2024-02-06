@@ -22,8 +22,7 @@ while c < n:
         print(a)
         c += 1
         a += 1
+    elif c < n:
+        a += 1
     else:
-        if c < n:
-            a += 1
-        else:
-            break
+        break
