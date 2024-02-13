@@ -21,9 +21,12 @@ class Taxi:
         self.cars = cars
 
     @staticmethod
-    def find_car(a, b):
+    def find_car():
+        a = int(input("Enter number of passengers: "))
+        b = bool(input("Required number of baby seats: "))
         if a+b < car1.passenger_seats or a+b == car1.passenger_seats:
             if b < car1.baby_seat or b == car1.baby_seat:
+                car1.busy = True
                 return (f"Car color={car1.color}, Number of passenger seats={car1.passenger_seats}, "
                         f"with seat for baby={car1.baby_seat}, availability of car={car1.busy}")
             else:
@@ -32,6 +35,4 @@ class Taxi:
 
 car1 = Car(color="Red", count_passenger_seats=10, is_baby_seat=True)
 car2 = Car(color="Blue", count_passenger_seats=5, is_baby_seat=False)
-a = int(input("Enter number of passengers: "))
-b = int(input("Required number of baby seats: "))
-print(Taxi.find_car(a, b))
+print(Taxi.find_car())
