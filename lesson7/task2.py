@@ -31,6 +31,7 @@ class Taxi:
 
 
 car1 = Car(color="Red", count_passenger_seats=10, is_baby_seat=True)
+car2 = Car(color="Blue", count_passenger_seats=5, is_baby_seat=False)
 a = int(input("Enter number of passengers: "))
 b = int(input("Required number of baby seats: "))
 print(Taxi.find_car(a, b))
