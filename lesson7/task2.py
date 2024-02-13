@@ -32,5 +32,5 @@ class Taxi:
 
 car1 = Car(color="Red", count_passenger_seats=10, is_baby_seat=True)
 a = int(input("Enter number of passengers: "))
-b = bool(input("Required number of baby seats: "))
+b = int(input("Required number of baby seats: "))
 print(Taxi.find_car(a, b))
