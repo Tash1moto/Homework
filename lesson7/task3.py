@@ -14,3 +14,24 @@
 # категории, если нет элемента на таком индексе, то новая категория должна добавляться с
 # учетом того, что имена категорий уникальны, если новое имя категории нарушает
 # уникальность в списке категорий, вызвать исключение ValueError
+
+class Category:
+    categories = 1
+
+    def __init__(self):
+        self.categories = 1
+
+    def __add__(self, a1):
+        a1 = (input("Enter category name: "))
+        if isinstance(a1, Category):
+            raise TypeError(f"ValueError")
+        else:
+            self.categories+other.categories
+            print(self.categories)
+
+
+
+
+
+
+
