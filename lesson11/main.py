@@ -60,12 +60,12 @@ class Rchat(Base):
     departament_id = Column(
         INT,
         ForeignKey(column=Dep.id, ondelete="RESTRICT", onupdate="CASCADE"),
-        nullable=False
+        nullable=True
     )
     sub_departament_id = Column(
         INT,
         ForeignKey(column=Sdep.id, ondelete="RESTRICT", onupdate="CASCADE"),
-        nullable=False
+        nullable=True
     )
 
     chats = relationship(argument="Chat", back_populates="chats_relations")
@@ -82,12 +82,12 @@ class User(Base):
     departament_id = Column(
         INT,
         ForeignKey(column=Dep.id, ondelete="RESTRICT", onupdate="CASCADE"),
-        nullable=False
+        nullable=True
     )
     sub_departament_id = Column(
         INT,
         ForeignKey(column=Sdep.id, ondelete="RESTRICT", onupdate="CASCADE"),
-        nullable=False
+        nullable=True
     )
 
     departments = relationship(argument=Dep, back_populates="users")
