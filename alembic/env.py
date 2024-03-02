@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from lesson11.task1 import Base, engine
+from lesson11.main import Base, engine
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
