@@ -1,39 +1,98 @@
-# from psycopg2 import connect
-#
-# with connect(dsn="postgres://user1:8nycw4nyc9g4wy49@217.76.60.77:6666/user1") as conn:
-#     with conn.cursor() as cur:
-        # cur.execute("""
-        #     CREATE TABLE IF NOT EXISTS TAGS(
-        #     id serial primary key,
-        #     name varchar(16) not null unique check (length(name) >=2 )
-        #     );
-        # """)
-        # cur.execute("""
-        #     create table if not exists topics(
-        #     id serial primary key,
-        #     title varchar(128) not null check (length(title) >=2 ),
-        #     body text not null,
-        #     date_created timestamp not null default (now()),
-        #     is_published boolean not null default (false)
-        #     );
-        # """)
-        # cur.execute("""
-        #     create table if not exists topic_tags(
-        #     tag_id integer,
-        #     topic_id integer,
-        #     primary key (tag_id, topic_id),
-        #     foreign key (tag_id) references tags(id) on delete restrict on update cascade,
-        #     foreign key (topic_id) references topics(id) on delete restrict on update cascade
-        #     );
-        #     """)
-        # conn.commit()
+from sqlalchemy import (
+    Column,
+    INT,
+    VARCHAR,
+    BOOLEAN,
+    TIMESTAMP,
+    ForeignKey,
+    CheckConstraint,
+    TEXT,
+    create_engine
+)
+from sqlalchemy.orm import DeclarativeBase, declarative_base, relationship, sessionmaker
 
-from sqlalchemy import Column, INT, VARCHAR, BOOLEAN, TIMESTAMP, ForeignKey, CheckConstraint, TEXT)
-from sqlalchemy.orm import DeclarativeBase, declarative_base
+
 class Base(DeclarativeBase):
     ...
 
-class Tag(Base):
-    __tablename__ = "tags"
+
+class Chat(Base):
+    __tablename__ = "chats"
+    __table_args__ = (
+        CheckConstraint("length(name) >= 2"),
+    )
+
     id = Column(INT, primary_key=True)
-    name
+    name = Column(VARCHAR(length=32))
+
+
+class Dep(Base):
+    __tablename__ = "departments"
+    __table_args__ = (
+        CheckConstraint("length(name) >= 2"),
+    )
+
+    id = Column(INT, primary_key=True)
+    name = Column(VARCHAR(length=32))
+
+
+class Sdep(Base):
+    __tablename__ = "sub_departments"
+    __table_args__ = (
+        CheckConstraint("length(name) >= 2"),
+    )
+
+    id = Column(INT, primary_key=True)
+    name = Column(VARCHAR(length=32))
+
+
+class Rchat(Base):
+    __tablename__ = "chats_relations"
+    __table_args__ = (
+        CheckConstraint("length(name) >= 2"),
+    )
+
+    id = Column(INT, primary_key=True)
+    chat_id = Column(
+        INT,
+        ForeignKey(column=Chat.id, ondelete="RESTRICT", onupdate="CASCADE"),
+        nullable=False)
+    departament_id = Column(
+        INT,
+        ForeignKey(column=Dep.id, ondelete="RESTRICT", onupdate="CASCADE"),
+        nullable=False
+    )
+    sub_departament_id = Column(
+        INT,
+        ForeignKey(column=Sdep.id, ondelete="RESTRICT", onupdate="CASCADE"),
+        nullable=False
+    )
+
+    chats = relationship(argument="Chat", back_populates="chats_relations")
+
+
+class User(Base):
+    __tablename__ = "users"
+    __table_args__ = (
+        CheckConstraint("length(title) >= 2"),
+        CheckConstraint("length(body) >= 2"),
+    )
+
+    id = Column(INT, primary_key=True)
+    departament_id = Column(
+        INT,
+        ForeignKey(column=Dep.id, ondelete="RESTRICT", onupdate="CASCADE"),
+        nullable=False
+    )
+    sub_departament_id = Column(
+        INT,
+        ForeignKey(column=Sdep.id, ondelete="RESTRICT", onupdate="CASCADE"),
+        nullable=False
+    )
+
+    departments = relationship(argument=Dep, back_populates="users")
+    sub_departments = relationship(argument=Sdep, back_populates="users")
+
+
+engine = create_engine(url="postgresql://user1:8nycw4nyc9g4wy49@217.76.60.77:6666/user1")
+session_maker = sessionmaker(bind=engine)
